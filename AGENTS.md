@@ -132,6 +132,27 @@ Lint 结果应写入一个 `Outputs` 或 `Log` 记录，并包含可执行的修
 - 在已有页面追加来源或更新记录。
 - 创建一条 Log。
 
+## FlowUS MCP Write Pattern
+
+实测 FlowUS MCP 时，最稳定的写入方式是三步：
+
+1. `API-createPage`: 只传 `parent.database_id` 和标题字段，先创建记录。
+2. `API-updatePage`: 再写入 select、multi_select、rich_text、number、date、url、relation 等属性。
+3. `API-putMarkdown`: 最后写入页面正文。
+
+不要在 `API-createPage` 里一次性塞入大量属性；这可能触发 FlowUS API 内部错误。
+
+查询策略：
+
+- 用户手动创建或已有的数据库行，可以优先尝试 `API-queryDatabase`。
+- Agent 刚创建的页面，优先保存 page id，并用 `API-getPage` 回读。
+- 按标题找 Agent 创建的页面，优先用 `API-search`。
+
+自关联策略：
+
+- `Wiki Pages.相关页面` 是同表自关联。建立 A-B 关系时，显式更新 A 关联 B，再更新 B 关联 A。
+- 不要依赖 FlowUS MCP 自动反向回填 Wiki 自关联。
+
 以下操作必须先预览：
 
 - 一次修改超过 5 个 Wiki Pages。
@@ -166,4 +187,3 @@ Lint 结果应写入一个 `Outputs` 或 `Log` 记录，并包含可执行的修
 ### Log Entry
 ...
 ```
-

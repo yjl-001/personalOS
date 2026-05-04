@@ -22,7 +22,10 @@
     ├── dashboard.md
     ├── implementation-checklist.md
     ├── mcp-integration.md
+    ├── post-mcp-fixes.md
+    ├── relationship-guide.md
     ├── schema.md
+    ├── test-report.md
     ├── import
     │   ├── log.csv
     │   ├── outputs.csv
