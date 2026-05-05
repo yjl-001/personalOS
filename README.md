@@ -1,141 +1,155 @@
-# FlowUS LLM Wiki Starter Kit
+# PersonalOS
 
-这是一个基于 FlowUS + LLM Agent + MCP 的个人知识库启动包。
+An agent-operable starter kit for maintaining a personal knowledge base in FlowUS.
 
-它的目标不是把 FlowUS 变成一个传统笔记软件，而是把它设计成一个由 LLM 持续维护的个人知识库系统：
+This repository is intentionally organized like an operations repo rather than a notes repo:
 
-- 你负责收集资料、提出问题、判断方向。
-- LLM 负责摘要、归档、交叉引用、更新旧页面、发现矛盾、写日志。
-- FlowUS 负责承载结构化数据库、页面正文、关系视图和日常浏览。
+- `FlowUS` is the live knowledge base.
+- `AGENTS.md` defines how agents should maintain it.
+- `docs/` stores the canonical system design and workflows.
+- `data/` stores templates, seed content, and import fixtures.
+- `scripts/` stores reusable execution entrypoints.
+- `skills/` stores project-local Codex skills.
+- `diagnostics/` stores one-off validation and cleanup utilities.
 
-核心原则：
+Core principle:
 
-> Raw Sources 保真，Wiki Pages 沉淀，Questions 驱动生长，Log 记录演化，Agent 通过 MCP 维护系统。
+> Raw Sources preserve evidence. Wiki Pages preserve synthesis. Questions drive growth. Log preserves history. Agents keep the system alive through MCP.
 
-## 文件结构
+## Structure
 
 ```text
 .
 ├── AGENTS.md
+├── CLAUDE.md
 ├── README.md
-└── flowus-llm-wiki
-    ├── dashboard.md
-    ├── implementation-checklist.md
-    ├── mcp-integration.md
-    ├── post-mcp-fixes.md
-    ├── relationship-guide.md
-    ├── schema.md
-    ├── test-report.md
-    ├── import
-    │   ├── log.csv
-    │   ├── outputs.csv
-    │   ├── questions.csv
-    │   ├── raw-sources.csv
-    │   └── wiki-pages.csv
-    ├── seed
-    │   ├── flowus-llm-wiki-seed.md
-    │   ├── raw-source-llm-wiki-summary.md
-    │   ├── wiki-page-flowus-personal-kb-os.md
-    │   ├── wiki-page-llm-wiki.md
-    │   └── llm-maintenance-rules-flowus-page.md
-    ├── templates
-    │   ├── lint-report.md
-    │   ├── log-entry.md
-    │   ├── output.md
-    │   ├── question.md
-    │   ├── raw-source.md
-    │   └── wiki-page.md
-    └── workflows
-        ├── ingest.md
-        ├── lint.md
-        ├── query.md
-        └── weekly-review.md
+├── docs
+│   ├── README.md
+│   ├── architecture
+│   ├── references
+│   ├── setup
+│   ├── specs
+│   └── workflows
+├── data
+│   ├── README.md
+│   ├── imports
+│   ├── seed
+│   └── templates
+├── scripts
+│   ├── README.md
+│   ├── flowus_mcp_smoke.rb
+│   └── weread_flowus_pipeline.js
+├── diagnostics
+│   ├── README.md
+│   ├── cleanup_flowus_records.rb
+│   ├── lint_flowus_wiki.rb
+│   └── real_ingest_flowus.rb
+└── skills
+    ├── README.md
+    ├── flowus-mcp-wiki
+    └── weread-to-flowus-pipeline
 ```
 
-## FlowUS 中的最小系统
+## Canonical FlowUS System
 
-先只建 5 个数据库和 2 个系统页面：
+Create one root page in FlowUS:
 
 ```text
-个人知识库 OS
+Personal Knowledge OS
 ├── 00 Dashboard
 ├── 01 Raw Sources
 ├── 02 Wiki Pages
 ├── 03 Questions
 ├── 04 Outputs
 ├── 05 Log
-└── 99 System
-    └── LLM 维护规则
+└── 99 System / LLM Maintenance Rules
 ```
 
-不要一开始拆太细。Projects、Areas、Reviews 先用字段和视图承载，等数量变大后再独立成库。
+Keep the first version small. Do not split into many databases too early.
 
-## 快速开始
+## Quick Start
 
-1. 在 FlowUS 创建一个根页面：`个人知识库 OS`。
-2. 按 `flowus-llm-wiki/schema.md` 创建 5 个数据库。
-3. 可选：用 `flowus-llm-wiki/import/*.csv` 导入种子数据。
-4. 把 `flowus-llm-wiki/dashboard.md` 复制到 `00 Dashboard`。
-5. 把 `flowus-llm-wiki/seed/llm-maintenance-rules-flowus-page.md` 复制到 `99 System / LLM 维护规则`。
-6. 按 `flowus-llm-wiki/implementation-checklist.md` 做第一次验收。
-7. 将 `AGENTS.md` 放在支持 Agent 的工作目录中，作为 Codex/Claude Code/OpenCode 等工具的系统约定。
-8. 如果你的 Agent 已接入 FlowUS MCP，把 `flowus-llm-wiki/mcp-integration.md` 中的数据库映射补全。
+1. Create the root page `Personal Knowledge OS` in FlowUS.
+2. Build the five databases from [schema.md](/Users/yjl/Desktop/PersonalOS/docs/specs/schema.md).
+3. Optionally import seed rows from [data/imports](/Users/yjl/Desktop/PersonalOS/data/imports).
+4. Copy [dashboard.md](/Users/yjl/Desktop/PersonalOS/docs/architecture/dashboard.md) into `00 Dashboard`.
+5. Copy [llm-maintenance-rules-flowus-page.md](/Users/yjl/Desktop/PersonalOS/data/seed/llm-maintenance-rules-flowus-page.md) into `99 System / LLM Maintenance Rules`.
+6. Complete the first-pass setup check with [implementation-checklist.md](/Users/yjl/Desktop/PersonalOS/docs/setup/implementation-checklist.md).
+7. Keep [AGENTS.md](/Users/yjl/Desktop/PersonalOS/AGENTS.md) in the workspace root so Codex and similar agents can follow the repo contract.
+8. Fill in live database IDs in [mcp-integration.md](/Users/yjl/Desktop/PersonalOS/docs/setup/mcp-integration.md) once FlowUS MCP is connected.
 
-## 日常工作流
+## Day-to-Day Work
 
-### 收集
+### Ingest from Raw Sources
 
-所有资料先进入 `Raw Sources`，状态设为 `未处理`。资料可以是文章、书、视频、播客、论文、网页、对话、日记或图片。
-
-### Ingest
-
-对 Agent 说：
+Ask the agent:
 
 ```text
-请通过 FlowUS MCP 处理 Raw Sources 里最近一条未处理资料，按 LLM 维护规则完成 ingest。
+Process the most recent unprocessed Raw Source through FlowUS MCP and complete the ingest workflow.
 ```
 
-Agent 应该完成：
+The agent should:
 
 ```text
-读取资料
-生成摘要
-更新 Raw Sources 状态
-新增或更新 Wiki Pages
-关联 Questions / Outputs
-写入 Log
+read the source
+summarize it
+update Raw Sources status
+create or update Wiki Pages
+link Questions or Outputs when needed
+write a Log record
+```
+
+### WeRead to FlowUS
+
+If WeRead MCP is available, use the dedicated workflow:
+
+- Workflow: [weread-to-wiki.md](/Users/yjl/Desktop/PersonalOS/docs/workflows/weread-to-wiki.md)
+- Script: [weread_flowus_pipeline.js](/Users/yjl/Desktop/PersonalOS/scripts/weread_flowus_pipeline.js)
+- Project skill: [skills/weread-to-flowus-pipeline/SKILL.md](/Users/yjl/Desktop/PersonalOS/skills/weread-to-flowus-pipeline/SKILL.md)
+
+Recommended prompt:
+
+```text
+Use the project skill $weread-to-flowus-pipeline to process "Book Title".
+Start with a dry-run. If the result looks correct, write the records into FlowUS.
+```
+
+Direct script entrypoint:
+
+```bash
+node scripts/weread_flowus_pipeline.js ingest --title "Book Title"
+node scripts/weread_flowus_pipeline.js ingest --title "Book Title" --apply
 ```
 
 ### Query
 
-对 Agent 说：
+Ask the agent:
 
 ```text
-基于我的 FlowUS 知识库，回答这个问题：……
-如果答案有长期价值，请沉淀回 Wiki Pages，并写入 Log。
+Answer this question from my FlowUS knowledge base. If the answer has long-term value, write it back into Wiki Pages and Log.
 ```
 
 ### Lint
 
-每周或每月运行一次：
+Run a periodic maintenance pass:
 
 ```text
-请对我的 FlowUS 知识库做一次 lint，重点检查 stale pages、孤立页面、缺少来源的结论、重复概念、矛盾结论和值得继续研究的问题。
+Lint my FlowUS knowledge base for stale pages, orphan pages, unsupported claims, duplicate concepts, contradictions, and unresolved high-value questions.
 ```
 
-## 第一周落地目标
+## Recommended Reading Order
 
-第一周只追求跑通闭环：
+1. [docs/README.md](/Users/yjl/Desktop/PersonalOS/docs/README.md)
+2. [AGENTS.md](/Users/yjl/Desktop/PersonalOS/AGENTS.md)
+3. [schema.md](/Users/yjl/Desktop/PersonalOS/docs/specs/schema.md)
+4. [mcp-integration.md](/Users/yjl/Desktop/PersonalOS/docs/setup/mcp-integration.md)
+5. A workflow under [docs/workflows](/Users/yjl/Desktop/PersonalOS/docs/workflows)
 
-- 建好 5 个核心数据库。
-- 导入或手动创建 8 个种子 Wiki Pages。
-- 处理 3 条 Raw Sources。
-- 让 Agent 回答 2 个 Questions。
-- 至少把 1 个回答沉淀为 Wiki Page 或 Output。
-- 跑一次 lint，检查结构是否顺手。
+## Design Choice
 
-## 设计取舍
+This repository is not a second knowledge base. It is the control plane around the FlowUS knowledge base:
 
-FlowUS 是知识库本体，不再需要默认维护一套本地 Markdown Wiki 作为中间层。
-
-本地文件仍然有价值：它们是系统蓝图、Agent 协议、模板和备份。真正的知识资产应以 FlowUS 中的数据库和页面为准。
+- docs define the system
+- data bootstraps the system
+- scripts execute stable workflows
+- skills help agents use those workflows consistently

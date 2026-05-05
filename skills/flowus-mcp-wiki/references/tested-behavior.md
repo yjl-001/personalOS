@@ -35,9 +35,8 @@ Same-table `Wiki Pages.相关页面` did not reliably auto-backfill. Write both 
 From project root:
 
 ```bash
-ruby skills/flowus-mcp-wiki/scripts/flowus_mcp_smoke.rb db-audit
-ruby skills/flowus-mcp-wiki/scripts/flowus_mcp_smoke.rb e2e-test
+ruby scripts/flowus_mcp_smoke.rb db-audit
+ruby scripts/flowus_mcp_smoke.rb e2e-test
 ```
 
-The script reads FlowUS MCP URL from `~/.codex/config.toml` and database IDs from `flowus-llm-wiki/mcp-integration.md` unless `FLOWUS_MCP_INTEGRATION` is set.
-
+The script reads FlowUS MCP URL from `~/.codex/config.toml` and database IDs from `docs/setup/mcp-integration.md` unless `FLOWUS_MCP_INTEGRATION` is set.

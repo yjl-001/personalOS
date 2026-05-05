@@ -15,9 +15,9 @@ Raw Sources -> Wiki Pages -> Questions -> Outputs -> Log
 
 Local project references:
 
-- Mapping and IDs: `flowus-llm-wiki/mcp-integration.md`
-- Full schema and field meanings: `flowus-llm-wiki/schema.md`
-- Test history: `flowus-llm-wiki/test-report.md`
+- Mapping and IDs: `docs/setup/mcp-integration.md`
+- Full schema and field meanings: `docs/specs/schema.md`
+- Test history: `docs/setup/test-report.md`
 - Skill references: `references/`
 - Smoke script: `scripts/flowus_mcp_smoke.rb`
 
@@ -123,11 +123,10 @@ When answering against the knowledge base:
 Run the smoke script from the project root:
 
 ```bash
-ruby skills/flowus-mcp-wiki/scripts/flowus_mcp_smoke.rb db-audit
-ruby skills/flowus-mcp-wiki/scripts/flowus_mcp_smoke.rb e2e-test
+ruby scripts/flowus_mcp_smoke.rb db-audit
+ruby scripts/flowus_mcp_smoke.rb e2e-test
 ```
 
 Use `FLOWUS_MCP_INTEGRATION=/path/to/mcp-integration.md` to test a different mapping file.
 
 The E2E test creates records titled `MCP E2E Test ...`. Deleting those FlowUS cloud records requires user confirmation or user-side cleanup.
-

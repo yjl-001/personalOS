@@ -134,11 +134,7 @@ def call_tool(client, name, args = {})
 end
 
 def integration_ids
-  path = ENV["FLOWUS_MCP_INTEGRATION"]
-  path ||= File.expand_path("../../../flowus-llm-wiki/mcp-integration.md", __dir__)
-  path = File.expand_path(path)
-  raise "FlowUS MCP integration mapping not found: #{path}" unless File.exist?(path)
-
+  path = File.expand_path("../docs/setup/mcp-integration.md", __dir__)
   rows = {}
   File.readlines(path).each do |line|
     next unless line.start_with?("|")
