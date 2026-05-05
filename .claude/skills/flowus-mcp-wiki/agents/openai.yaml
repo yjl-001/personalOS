@@ -1,0 +1,4 @@
+interface:
+  display_name: "FlowUS MCP Wiki"
+  short_description: "Maintain FlowUS LLM Wiki knowledge bases"
+  default_prompt: "Use $flowus-mcp-wiki to ingest a FlowUS Raw Source and update the linked wiki."

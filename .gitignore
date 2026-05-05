@@ -1,0 +1,5 @@
+# MCP config contains auth token
+.mcp.json
+
+# User-specific Claude Code settings
+.claude/settings.local.json
