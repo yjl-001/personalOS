@@ -1,3 +1,8 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What This Repo Is
 
 This is a **FlowUS LLM Wiki Starter Kit** — a personal knowledge base system where FlowUS hosts structured databases and pages, and an LLM agent (via FlowUS MCP) maintains them. It is not a traditional software project with build/test/deploy cycles.
 
