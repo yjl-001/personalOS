@@ -1,6 +1,6 @@
 # FlowUS LLM Wiki Schema Contract
 
-Use the local `flowus-llm-wiki/mcp-integration.md` file for actual database IDs.
+Use the local `docs/setup/mcp-integration.md` file for actual database IDs.
 
 ## Databases
 
@@ -99,4 +99,3 @@ Key fields:
 - `主要变化`: rich_text
 - `后续动作`: rich_text
 - `操作者`: select, values `我`, `LLM`, `我+LLM`
-
