@@ -23,7 +23,7 @@ Observed FlowUS MCP tools:
 - `API-putMarkdown`
 - `API-batch`
 
-Use these names if FlowUS tools are exposed directly. If they are not injected into Codex, use `scripts/flowus_mcp_smoke.rb` as the JSON-RPC client.
+Use these names if FlowUS tools are exposed directly. If they are not injected into Codex, use the repo script `scripts/flowus_mcp_smoke.rb` as the JSON-RPC client.
 
 ## Stable Record Creation
 
@@ -121,4 +121,3 @@ Update B.相关页面 = [A]
 ```
 
 Cross-table dual relations worked as expected during testing.
-

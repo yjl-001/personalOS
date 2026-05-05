@@ -1,0 +1,6 @@
+interface:
+  display_name: "WeRead to FlowUS Pipeline"
+  short_description: "Run the WeRead to FlowUS ingest chain safely"
+  default_prompt: "Use $weread-to-flowus-pipeline to fetch a WeRead book, synthesize it, and write verified records into my FlowUS knowledge base."
+policy:
+  allow_implicit_invocation: true
