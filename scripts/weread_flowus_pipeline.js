@@ -110,7 +110,7 @@ function parseToolText(result) {
 class WereadClient {
   constructor(env, launchConfig = {}) {
     const command = launchConfig.command || "npx";
-    const args = launchConfig.args?.length ? launchConfig.args : ["-y", "mcp-server-weread"];
+    const args = launchConfig.args?.length ? launchConfig.args : ["-y", "github:yjl-001/mcp-server-weread"];
     console.error(`[WeReadPipeline] launching weread MCP: ${command} ${args.join(" ")}`);
     this.child = spawn(command, args, {
       stdio: ["pipe", "pipe", "inherit"],
